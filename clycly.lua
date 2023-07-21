@@ -2078,7 +2078,11 @@ do -- Example UI
         end)
         Switch:Set(false) -- Set the initial state of the switch to false
 
-        
+        Tab:AddKeybind("Keybind", function(key)
+		toggleSkillExecution(key)
+		end, { -- (options are optional)
+			["standard"] = Enum.KeyCode.N -- Default: RightShift
+		})
 
         Tab:AddButton("Release Suna Stack", function()
 			print("Suna Released")
