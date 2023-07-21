@@ -2072,34 +2072,17 @@ do -- Example UI
                 end
             end
         end
-        local Switch = Tab:AddSwitch("Suna X Stack", function(active)
-    toggleSkillExecution(active)
-end)
+        
+       -- local Switch = Tab:AddSwitch("Suna X Stack", function(active)
+      --      toggleSkillExecution(active)
+     --   end)
+    --    Switch:Set(false) -- Set the initial state of the switch to false
 
--- Set the initial state of the switch to false
-Switch:Set(false)
-
--- Function to toggle the switch state
-local function toggleSwitchState()
-    -- Get the current state of the switch
-    local currentState = Switch:Get()
-
-    -- Set the opposite state for the switch (i.e., toggle it)
-    Switch:Set(not currentState)
-
-    -- Perform any additional actions if needed when the switch state is changed
-    toggleSkillExecution(not currentState)
-end
-
-Tab:AddKeybind("Keybind", function(key)
-    -- Call the function to toggle the switch state
-    toggleSwitchState()
-end, {
-    -- Set the desired key for the keybind (e.g., 'N')
-    ["standard"] = Enum.KeyCode.N -- Default: RightShift
-})
-
-		
+        Tab:AddKeybind("Suna X Stack Keybind", function(key)
+		toggleSkillExecution(key)
+		end, { -- (options are optional)
+			["standard"] = Enum.KeyCode.N -- Default: RightShift
+		})
 
         Tab:AddButton("Release Suna Stack", function()
 			print("Suna Released")
@@ -2110,7 +2093,7 @@ end, {
 			 game:GetService("ReplicatedStorage"):WaitForChild("PlayerRemotes"):WaitForChild(game.Players.LocalPlayer.Name.."|ServerScriptService.Skills.Skills.SkillContainer.Suna-Suna.Desert Spada"):FireServer(unpack(args))
 		end)
         
-        Tab:AddKeybind("Movestack Keybind", function(key)
+        Tab:AddKeybind("Release Keybind", function(key)
 			print("Suna Released")
             local args = {
 				[1] = CFrame.new(-3688.59082, 18.1677742, 423.727539, 0.998908818, -3.40270361e-07, 0.046702411, 2.04845273e-05, 0.999999881, -0.00043085363, -0.0467024073, 0.000431340188, 0.998908758)
