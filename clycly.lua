@@ -2073,16 +2073,33 @@ do -- Example UI
             end
         end
         
-        local Switch = Tab:AddSwitch("Suna X Stack", function(active)
-            toggleSkillExecution(active)
-        end)
-        Switch:Set(false) -- Set the initial state of the switch to false
-
-        Tab:AddKeybind("Keybind", function(key)
-		toggleSkillExecution(key)
-		end, { -- (options are optional)
+		local Switch = Tab:AddSwitch("Suna X Stack", function(active)
+			toggleSkillExecution(active)
+		end)
+		
+		-- Set the initial state of the switch to false
+		Switch:Set(false)
+		
+		-- Function to toggle the switch state
+		local function toggleSwitchState()
+			-- Get the current state of the switch
+			local currentState = Switch:Get()
+		
+			-- Set the opposite state for the switch (i.e., toggle it)
+			Switch:Set(not currentState)
+		
+			-- Perform any additional actions if needed when the switch state is changed
+			toggleSkillExecution(not currentState)
+		end
+		
+		Tab:AddKeybind("Keybind", function(key)
+			-- Call the function to toggle the switch state
+			toggleSwitchState()
+		end, {
+			-- Set the desired key for the keybind (e.g., 'N')
 			["standard"] = Enum.KeyCode.N -- Default: RightShift
 		})
+		
 
         Tab:AddButton("Release Suna Stack", function()
 			print("Suna Released")
