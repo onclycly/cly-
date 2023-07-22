@@ -2108,8 +2108,8 @@ do
 		
 		-- Elements
 
-		Tab:AddLabel("Stacking")
-		Tab:AddLabel("--------")
+		LocalTab:AddLabel("Stacking")
+		LocalTab:AddLabel("--------")
 
 	local SunaSwitch = LocalTab:AddSwitch("Suna Stacking", function(bool)
  		getgenv().SunaStack = bool
@@ -2127,8 +2127,8 @@ do
 
 	end
 
-		Tab:AddLabel("Release")
-		Tab:AddLabel("--------")
+		LocalTab:AddLabel("Release")
+		LocalTab:AddLabel("--------")
 
 	LocalTab:AddButton("Release Suna Stack", function()
     	SunaRelease()
@@ -2140,8 +2140,8 @@ do
  		["standard"] = Enum.KeyCode.G
  	})
 
-	 Tab:AddLabel("Servers")
-	 Tab:AddLabel("--------")
+	 LocalTab:AddLabel("Servers")
+	 LocalTab:AddLabel("--------")
 
 	 LocalTab:AddButton("Server Hop", function()
     	NormalServerHop()
