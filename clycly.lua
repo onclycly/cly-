@@ -1,9 +1,43 @@
+----------------------------------------- VARIABLES
+
+getgenv().SunaStack = false
+
+
+----------------------------------------- FUNCTIONS
+
+function SunaStack() 
+
+	spawn(function()
+		while getgenv().SunaStack do
+			task.wait()
+			local args = {
+				[1] = "Desert Spada",
+				[2] = {
+				["cf"] = CFrame.new(-3694.07275, 15.0927734, 138.661896, 0.999832332, -0.000389953493, 0.0183105897, -0, 0.999773383, 0.0212917831, -0.0183147416, -0.0212882124, 0.999605656)
+			}
+			}
+		end
+	end)
+end
+
+function SunaRelease()
+	if getgenv().SunaStack == true then
+	local args = {
+		[1] = CFrame.new(-3688.59082, 18.1677742, 423.727539, 0.998908818, -3.40270361e-07, 0.046702411, 2.04845273e-05, 0.999999881, -0.00043085363, -0.0467024073, 0.000431340188, 0.998908758)
+	 }
+		
+	 game:GetService("ReplicatedStorage"):WaitForChild("PlayerRemotes"):WaitForChild(game.Players.LocalPlayer.Name.."|ServerScriptService.Skills.Skills.SkillContainer.Suna-Suna.Desert Spada"):FireServer(unpack(args))
+	end
+end
+
+
+----------------------------------------- UI LIBS
 
 local ui_options = {
-	main_color = Color3.fromRGB(41, 74, 122),
-	min_size = Vector2.new(400, 300),
+	main_color = Color3.fromRGB(118, 68, 138),
+	min_size = Vector2.new(400, 400),
 	toggle_key = Enum.KeyCode.F5,
-	can_resize = true,
+	can_resize = false,
 }
 
 do
@@ -822,7 +856,7 @@ local checks = {
 }
 
 UIS.InputBegan:Connect(function(input, gameProcessed)
-	if input.KeyCode == ((typeof(ui_options.toggle_key) == "EnumItem") and ui_options.toggle_key or Enum.KeyCode.F5) then
+	if input.KeyCode == ((typeof(ui_options.toggle_key) == "EnumItem") and ui_options.toggle_key or Enum.KeyCode.RightShift) then
 		if script.Parent then
 			if not checks.binding then
 				script.Parent.Enabled = not script.Parent.Enabled
@@ -2017,144 +2051,120 @@ function library:AddWindow(title, options)
 	return window_data, Window
 end
 
-do -- Example UI
-	local Window = library:AddWindow("Cly!", {
-		main_color = Color3.fromRGB(128, 27, 124),
-		min_size = Vector2.new(500, 600),
+do 
+	local Window = library:AddWindow("Cly Hub", {
+		main_color = Color3.fromRGB(118, 68, 138),
+		min_size = Vector2.new(400, 400),
 		toggle_key = Enum.KeyCode.F5,
-		can_resize = true,
+		can_resize = false,
 	})
-	local Tab = Window:AddTab("Main")
+	local LocalTab = Window:AddTab("Movestacks")
 
-	do -- Elements
-		Tab:AddLabel("Grand Piece Online")
+	do
+		
+		-- Elements
 
-		--Tab:AddButton("Button", function()
-		--	print("Button clicked.")
-	--	end)
+		Tab:AddLabel("Stacking")
+		Tab:AddLabel("--------")
 
-		--Tab:AddTextBox("TextBox", function(text)
-		--	print(text)
-		--end, {
-		--	["clear"] = false, -- Default: true (options are optional)
-	--	})
+	local SunaSwitch = LocalTab:AddSwitch("Suna Stacking", function(bool)
+ 		getgenv().SunaStack = bool
+		if bool then
+			SunaStack()
+		end
+	end)
+ 	SunaSwitch:Set(false)
 
-		--local Switch = Tab:AddSwitch("Switch", function(bool)
-		--	print(bool)
-		--end)
-		--Switch:Set(true)
-
-        local isSkillActive = false
-        local skillExecutionTask = nil
-        
-        local function toggleSkillExecution(active)
-            isSkillActive = active
-        
-            if isSkillActive then
-                skillExecutionTask = task.spawn(function()
-                    while isSkillActive do
-                        task.wait()
-                        local args = {
-                            [1] = "Desert Spada",
-                            [2] = {
-                                ["cf"] = CFrame.new(-3694.07275, 15.0927734, 138.661896, 0.999832332, -0.000389953493, 0.0183105897, -0, 0.999773383, 0.0212917831, -0.0183147416, -0.0212882124, 0.999605656)
-                            }
-                        }
-        
-                        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Skill"):InvokeServer(unpack(args))
-                        print("Suna Stacking")
-                    end
-                end)
-            else
-                if skillExecutionTask then
-                    task.kill(skillExecutionTask)
-                    skillExecutionTask = nil
-                end
-            end
-        end
-        
-       -- local Switch = Tab:AddSwitch("Suna X Stack", function(active)
-      --      toggleSkillExecution(active)
-     --   end)
-    --    Switch:Set(false) -- Set the initial state of the switch to false
-
-        Tab:AddKeybind("Suna X Stack Keybind", function(key)
-		toggleSkillExecution(key)
-		end, { -- (options are optional)
-			["standard"] = Enum.KeyCode.N -- Default: RightShift
-		})
-
-      --  Tab:AddButton("Release Suna Stack", function()
-	--		print("Suna Released")
-	--		local args = {
-	--			[1] = CFrame.new(-3688.59082, 18.1677742, 423.727539, 0.998908818, -3.40270361e-07, 0.046702411, 2.04845273e-05, 0.999999881, -0.00043085363, -0.0467024073, 0.000431340188, 0.998908758)
-	--		 }
-			
-	--		 game:GetService("ReplicatedStorage"):WaitForChild("PlayerRemotes"):WaitForChild(game.Players.LocalPlayer.Name.."|ServerScriptService.Skills.Skills.SkillContainer.Suna-Suna.Desert Spada"):FireServer(unpack(args))
-	--	end)
-        
-        Tab:AddKeybind("Release Keybind", function(key)
-			print("Suna Released")
-            local args = {
-				[1] = CFrame.new(-3688.59082, 18.1677742, 423.727539, 0.998908818, -3.40270361e-07, 0.046702411, 2.04845273e-05, 0.999999881, -0.00043085363, -0.0467024073, 0.000431340188, 0.998908758)
-			 }
-			
-			 game:GetService("ReplicatedStorage"):WaitForChild("PlayerRemotes"):WaitForChild(game.Players.LocalPlayer.Name.."|ServerScriptService.Skills.Skills.SkillContainer.Suna-Suna.Desert Spada"):FireServer(unpack(args))
-		end, { -- (options are optional)
-			["standard"] = Enum.KeyCode.H -- Default: H
-		})
-
-	--	local Slider = Tab:AddSlider("Slider", function(x)
-		--	print(x)
-	--	end, { -- (options are optional)
-	--		["min"] = 0, -- Default: 0
-	--		["max"] = 100, -- Default: 100
-	--		["readonly"] = false, -- Default: false
-	--	})
-	--	Slider:Set(50)
-
-	--	Tab:AddKeybind("Keybind", function(key)
-	--		print(key)
-	--	end, { -- (options are optional)
-	--		["standard"] = Enum.KeyCode.RightShift -- Default: RightShift
-	--	})
-
-		--local Dropdown = Tab:AddDropdown("Dropdown", function(object)
-		--	print(object)
-		--end)
-		--for i = 1, 9 do
-		--	Dropdown:Add(tostring(i))
-		--end
-	--	local obj = Dropdown:Add("10")
-	--	obj:Remove()
-
-		--local CP = Tab:AddColorPicker(function(color)
-		--	print(color)
-	--	end)
-	--	CP:Set(Color3.new(1, 0, 0))
-
-	--	local Console = Tab:AddConsole({
-	--		["y"] = 100,
-	--	["source"] = "Lua",
-		--})
-		--Console:Set("-- Gamer time!\nfor i = 1, 9 do \n    print(i)\nend")
-		--print(Console:Get())
-
-		--local HA = Tab:AddHorizontalAlignment()
-		--HA:AddButton("Execute", function()
-		--	loadstring(Console:Get())()
-		--end)
-		--HA:AddButton("Clear", function()
-		--	Console:Set("")
-		--end)
-
-		--local Folder = Tab:AddFolder("Folder") -- This can contain exactly the same as a Tab. You can have as many folders as you'd like to.
-		--Folder:AddLabel("Hello")
-		--local Folder2 = Folder:AddFolder("?")
-		--Folder2:AddLabel("Woo!")
+	 LocalTab:AddKeybind("Stack Keybind", function(key)
+	 	SunaSwitch:Set(true)
+	 end, { -- (options are optional)
+		["standard"] = Enum.KeyCode.K
+	 })
 
 	end
 
-	Tab:Show()
+		Tab:AddLabel("Release")
+		Tab:AddLabel("--------")
+
+	LocalTab:AddButton("Release Suna Stack", function()
+    	SunaRelease()
+    end)
+
+	LocalTab:AddKeybind("Release Keybind", function(key)
+ 		print(key)
+	 end, { -- (options are optional)
+ 		["standard"] = Enum.KeyCode.G
+ 	})
+
+	LocalTab:Show()
 	library:FormatWindows()
 end
+
+
+----------------------------------------- UI EXTRAS
+
+-- Tab:AddLabel("Hello World!")
+
+-- Tab:AddButton("Button", function()
+-- 	print("Button clicked.")
+-- end)
+
+-- Tab:AddTextBox("TextBox", function(text)
+-- 	print(text)
+-- end, {
+-- 	["clear"] = false, -- Default: true (options are optional)
+-- })
+
+-- local Switch = Tab:AddSwitch("Switch", function(bool)
+-- 	print(bool)
+-- end)
+-- Switch:Set(true)
+
+-- local Slider = Tab:AddSlider("Slider", function(x)
+-- 	print(x)
+-- end, { -- (options are optional)
+-- 	["min"] = 0, -- Default: 0
+-- 	["max"] = 100, -- Default: 100
+-- 	["readonly"] = false, -- Default: false
+-- })
+-- Slider:Set(50)
+
+-- Tab:AddKeybind("Keybind", function(key)
+-- 	print(key)
+-- end, { -- (options are optional)
+-- 	["standard"] = Enum.KeyCode.RightShift -- Default: RightShift
+-- })
+
+-- local Dropdown = Tab:AddDropdown("Dropdown", function(object)
+-- 	print(object)
+-- end)
+-- for i = 1, 9 do
+-- 	Dropdown:Add(tostring(i))
+-- end
+-- local obj = Dropdown:Add("10")
+-- obj:Remove()
+
+-- local CP = Tab:AddColorPicker(function(color)
+-- 	print(color)
+-- end)
+-- CP:Set(Color3.new(1, 0, 0))
+
+-- local Console = Tab:AddConsole({
+-- 	["y"] = 100,
+-- 	["source"] = "Lua",
+-- })
+-- Console:Set("-- Gamer time!\nfor i = 1, 9 do \n    print(i)\nend")
+-- print(Console:Get())
+
+-- local HA = Tab:AddHorizontalAlignment()
+-- HA:AddButton("Execute", function()
+-- 	loadstring(Console:Get())()
+-- end)
+-- HA:AddButton("Clear", function()
+-- 	Console:Set("")
+-- end)
+
+-- local Folder = Tab:AddFolder("Folder") -- This can contain exactly the same as a Tab. You can have as many folders as you'd like to.
+-- Folder:AddLabel("Hello")
+-- local Folder2 = Folder:AddFolder("?")
+-- Folder2:AddLabel("Woo!")
