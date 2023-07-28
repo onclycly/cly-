@@ -15,6 +15,7 @@ function SunaStack()
 				["cf"] = CFrame.new(-3694.07275, 15.0927734, 138.661896, 0.999832332, -0.000389953493, 0.0183105897, -0, 0.999773383, 0.0212917831, -0.0183147416, -0.0212882124, 0.999605656)
 			}
 			}
+			game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Skill"):InvokeServer(unpack(args))
 		end
 	end)
 end
