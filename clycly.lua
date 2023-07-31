@@ -5,5 +5,4 @@ for i,v in pairs(HWIDTable) do
     if v == HWID then
         loadstring(game:HttpGet('https://raw.githubusercontent.com/onclycly/main/main/clyhub'))()
     end
-    
 end
